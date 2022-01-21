@@ -27,8 +27,8 @@ class ApplicationUserManager(BaseUserManager):
 
         Args:
             email (str): Email
-            firstname (str): Firstname
-            lasename (str): Lastname
+            first_name (str): first_name
+            last_name (str): last_name
             password (str, optional): Password. Defaults to None.
 
         Raises:
@@ -53,8 +53,8 @@ class ApplicationUserManager(BaseUserManager):
 
         Args:
             email (str): Email
-            firstname (str): Firstname
-            lasename (str): Lastname
+            first_name (str): first_name
+            last_name (str): last_name
             password (str, optional): Password. Defaults to None.
 
         Returns:
@@ -65,6 +65,7 @@ class ApplicationUserManager(BaseUserManager):
         user = self.create_user(email, first_name, last_name, password)
         user.is_superuser = True
         user.is_staff = True
+        user.email_confirmed = True
         user.save(using=self._db)
         return user
 
@@ -92,7 +93,7 @@ class ApplicationUser(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["firstname", "lastname"]
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     class Meta:
         db_table = "application_user"
