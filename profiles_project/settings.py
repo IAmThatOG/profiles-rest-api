@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework.authtoken",
-    "profiles_api.apps.ProfilesApiConfig",
+    "profiles_api",
+    "profiles_core",
+    "profiles_infrastructure",
 ]
 
 MIDDLEWARE = [
@@ -126,4 +128,10 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # User model mapping for django
-AUTH_USER_MODEL = "profiles_api.ApplicationUser"
+AUTH_USER_MODEL = "profiles_core.ApplicationUser"
+
+MIGRATION_MODULES = {
+    "profiles_core": "profiles_infrastructure.database.migrations",
+    "profiles_api": None,
+    "profiles_infrastructure": None,
+}

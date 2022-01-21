@@ -2,7 +2,6 @@ from unicodedata import name
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
-    AbstractUser,
     PermissionsMixin,
     BaseUserManager,
 )
@@ -23,7 +22,7 @@ class ApplicationUserManager(BaseUserManager):
 
     def create_user(
         self, email: str, first_name: str, last_name: str, password: str = None
-    ) -> ApplicationUser:
+    ):
         """Creates a user
 
         Args:
@@ -49,7 +48,7 @@ class ApplicationUserManager(BaseUserManager):
 
     def create_superuser(
         self, email: str, first_name: str, last_name: str, password: str
-    ) -> ApplicationUser:
+    ):
         """Creates a superuser
 
         Args:
@@ -78,9 +77,14 @@ class ApplicationUser(AbstractBaseUser, PermissionsMixin):
         PermissionsMixin (PermissionsMixin): Django base permission model
     """
 
-    email = models.EmailField(name="email", unique=True, max_length=254)
-    first_name = models.CharField(name="first_name", max_length=254)
-    last_name = models.CharField(name="last_name", max_length=254)
+    email = models.EmailField(name="email", unique=True, max_length=128)
+    email_confirmed = models.BooleanField(name="email_confirmed", default=False)
+    phone_number = models.CharField(name="phone_number", max_length=50)
+    phone_number_confirmed = models.BooleanField(
+        name="phone_number_confirmed", default=False
+    )
+    first_name = models.CharField(name="first_name", max_length=32)
+    last_name = models.CharField(name="last_name", max_length=32)
     is_active = models.BooleanField(name="is_active", default=True)
     is_staff = models.BooleanField(name="is_staff", default=False)
 
@@ -88,7 +92,10 @@ class ApplicationUser(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["email", "firstname", "lastname"]
+    REQUIRED_FIELDS = ["firstname", "lastname"]
+
+    class Meta:
+        db_table = "application_user"
 
     @property
     def full_name(self):
