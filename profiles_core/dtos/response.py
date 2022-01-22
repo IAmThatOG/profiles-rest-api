@@ -1,9 +1,11 @@
 class BaseResponse:
-    def __init__(self, *args, **kwargs):
-        self.is_success = kwargs["is_success"]
-        self.message = kwargs["message"]
-        self.status_code = kwargs["status_code"]
-        self.payload = kwargs["payload"]
+    def __init__(
+        self, is_success: bool, message: str, status_code: int, payload: object
+    ):
+        self.is_success = is_success
+        self.message = message
+        self.status_code = status_code
+        self.payload = payload
 
     @property
     def JSON(self):

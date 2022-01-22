@@ -6,7 +6,6 @@ from rest_framework import status
 
 from profiles_api.serializers.test_view_serializer import TestViewSerializer
 from profiles_core.dtos.response import BaseResponse
-from django.http import http
 
 
 # Create your views here.
