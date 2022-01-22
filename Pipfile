@@ -7,8 +7,10 @@ name = "pypi"
 black = "*"
 django = "~=4.0"
 djangorestframework = "~=3.13"
+jsonpickle = "~=2.0"
 
 [dev-packages]
+pygments = "~=2.0"
 
 [requires]
 python_version = "3.9"
